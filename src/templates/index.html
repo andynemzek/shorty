@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Shorty</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">    
+    <link rel="stylesheet" href="/static/vendor/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/vendor/bootstrap-3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+  
+  <div class="url-container">
+    <h1 class="url-header">Shorten your URL</h1>
+    <form action="/" method="post" class="url-form form-inline">
+      <div class="url-input-group form-group">
+        <input name="input-url" type="text" class="url-input form-control" placeholder="http://example.com" value="{{ input_url if input_url else '' }}">
+      </div>
+      <button type="submit" class="url-button btn btn-primary">Shorten</button>
+    </form>
+    {% if short_url %}
+    <h2 class="url-header-result">Here's your new url</h2>
+    <pre class="url-shortened">{{ short_url }}</pre>
+    {% elif error %}
+    <div class="url-error alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+  </div>
+
+</body>
+</html>
