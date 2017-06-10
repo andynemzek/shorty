@@ -29,14 +29,17 @@ def main():
     
     if flask.request.method == 'POST':
         input_url = flask.request.form['input-url']
-        if validators.url(input_url):
+        if len(input_url) > config.URL_LENGTH_LIMIT:
+            logging.info("Input URL too long")
+            error = "The URL specified is too long"
+        elif not validators.url(input_url):
+            logging.info("Invalid url: %s", input_url)
+            error = "Please enter a valid URL"
+        else:
             logging.info("Storing url: %s", input_url)
             short_url_code = store_url(input_url)
             short_url = create_short_url(short_url_code)
             logging.info("Short url created: %s", short_url)
-        else:
-            logging.info("Invalid url: %s", input_url)
-            error = "Please enter a valid URL"
 
     params = {
         "input_url": input_url,
